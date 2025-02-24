@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: openfin-postgres
+    environment:
+      POSTGRES_DB: openfin
+      POSTGRES_USER: openfin_user
+      POSTGRES_PASSWORD: openfin_pass
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
