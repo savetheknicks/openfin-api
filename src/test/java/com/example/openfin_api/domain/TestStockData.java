@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -54,6 +55,30 @@ public class TestStockData {
 
     @Nested
     class TestStockDataFields {
+
+        private LocalDateTime timestamp;
+        private StockData stockData;
+
+        @BeforeEach
+        void setUp() {
+            timestamp = LocalDateTime.now();
+            stockData = new StockData("AAPL", 100.0, timestamp);
+        }
+
+        @Test
+        void TestStockDataSymbol() {
+            assertEquals("AAPL", stockData.getSymbol());
+        }
+
+        @Test
+        void TestStockDataPrice() {
+            assertEquals(100.0, stockData.getPrice());
+        }
+
+        @Test
+        void TestStockDataTimestamp() {
+            assertEquals(timestamp, stockData.getTimestamp());
+        }
 
     }
 
