@@ -2,7 +2,6 @@ package com.example.openfin_api.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -112,6 +111,89 @@ public class TestStockData {
             assertEquals("GOOGL", stockData.getSymbol());
         }    
 
+    }
+
+    @Nested
+    class TestStockDataFieldsInvalidInput {
+        
+        private LocalDateTime timestamp;
+        private StockData stockData;
+
+        @BeforeEach
+        void setUp() {
+            timestamp = LocalDateTime.now();
+            stockData = new StockData("AAPL", 100.0, timestamp);
+        }
+
+        @Test
+        void TestStockDataSetNullSymbol() {
+            stockData.setSymbol(null);
+            Set<jakarta.validation.ConstraintViolation<StockData>> violations = validator.validate(stockData);
+            assertFalse(violations.isEmpty());
+            violations.forEach(violation -> {
+                assertEquals("Symbol is required", violation.getMessage());
+            });
+        }
+
+        @Test
+        void TestStockDataSetEmptySymbol() {
+            stockData.setSymbol("");
+            Set<jakarta.validation.ConstraintViolation<StockData>> violations = validator.validate(stockData);
+            assertFalse(violations.isEmpty());
+            violations.forEach(violation -> {
+                assertEquals("Symbol is required", violation.getMessage());
+            });
+        }
+        
+        @Test
+        void TestStockDataSetBlankSymbol() {
+            stockData.setSymbol(" ");
+            Set<jakarta.validation.ConstraintViolation<StockData>> violations = validator.validate(stockData);
+            assertFalse(violations.isEmpty());
+            violations.forEach(violation -> {
+                assertEquals("Symbol is required", violation.getMessage());
+            });
+        }
+
+        @Test
+        void TestStockDataSetNullPrice() {
+            stockData.setPrice(null);
+            Set<jakarta.validation.ConstraintViolation<StockData>> violations = validator.validate(stockData);
+            assertFalse(violations.isEmpty());
+            violations.forEach(violation -> {
+                assertEquals("Price is required", violation.getMessage());
+            });
+        }
+
+        @Test
+        void TestStockDataSetNullPriceZero() {
+            stockData.setPrice(0.0);
+            Set<jakarta.validation.ConstraintViolation<StockData>> violations = validator.validate(stockData);
+            assertFalse(violations.isEmpty());
+            violations.forEach(violation -> {
+                assertEquals("Price must be greater than 0", violation.getMessage());
+            });
+        }
+
+        @Test
+        void TestStockDataSetPriceNegative() {
+            stockData.setPrice(-100.0);
+            Set<jakarta.validation.ConstraintViolation<StockData>> violations = validator.validate(stockData);
+            assertFalse(violations.isEmpty());
+            violations.forEach(violation -> {
+                assertEquals("Price must be greater than 0", violation.getMessage());
+            });
+        }
+
+        @Test
+        void TestStockDataSetNullTimestamp() {
+            stockData.setTimestamp(null);
+            Set<jakarta.validation.ConstraintViolation<StockData>> violations = validator.validate(stockData);
+            assertFalse(violations.isEmpty());
+            violations.forEach(violation -> {
+                assertEquals("Timestamp is required", violation.getMessage());
+            });
+        }
     }
 
 }
