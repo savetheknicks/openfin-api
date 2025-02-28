@@ -186,6 +186,85 @@ public class TestCryptoData {
             cryptoData.setTimestamp(newTimestamp);
             assertEquals(newTimestamp, cryptoData.getTimestamp());
         }
-    }
 
+        @Test
+        void TestSetNullCoinIdIsRejected() {
+            cryptoData.setCoinId(null);
+            Set<jakarta.validation.ConstraintViolation<CryptoData>> violations = validator.validate(cryptoData);
+            assertFalse(violations.isEmpty());
+            violations.forEach(violation -> {
+                assertEquals("Coin ID is required", violation.getMessage());
+            });
+        }
+
+        @Test
+        void TestSetEmptyCoinIdIsRejected() {
+            cryptoData.setCoinId("");
+            Set<jakarta.validation.ConstraintViolation<CryptoData>> violations = validator.validate(cryptoData);
+            assertFalse(violations.isEmpty());
+            violations.forEach(violation -> {
+                assertEquals("Coin ID is required", violation.getMessage());
+            });
+        }
+
+        @Test
+        void TestSetBlankCoinIdIsRejected() {
+            cryptoData.setCoinId(" ");
+            Set<jakarta.validation.ConstraintViolation<CryptoData>> violations = validator.validate(cryptoData);
+            assertFalse(violations.isEmpty());
+            violations.forEach(violation -> {
+                assertEquals("Coin ID is required", violation.getMessage());
+            });
+        }
+
+        @Test
+        void TestSetNullPriceIsRejected() {
+            cryptoData.setPrice(null);
+            Set<jakarta.validation.ConstraintViolation<CryptoData>> violations = validator.validate(cryptoData);
+            assertFalse(violations.isEmpty());
+            violations.forEach(violation -> {
+                assertEquals("Price is required", violation.getMessage());
+            });
+        }
+
+        @Test
+        void TestSetNegativePriceIsRejected() {
+            cryptoData.setPrice(-100.0);
+            Set<jakarta.validation.ConstraintViolation<CryptoData>> violations = validator.validate(cryptoData);
+            assertFalse(violations.isEmpty());
+            violations.forEach(violation -> {
+                assertEquals("Price must be greater than 0", violation.getMessage());
+            });
+        }
+
+        @Test
+        void TestSetNullMarketCapIsRejected() {
+            cryptoData.setMarketCap(null);
+            Set<jakarta.validation.ConstraintViolation<CryptoData>> violations = validator.validate(cryptoData);
+            assertFalse(violations.isEmpty());
+            violations.forEach(violation -> {
+                assertEquals("Market Cap is required", violation.getMessage());
+            });
+        }
+
+        @Test
+        void TestSetNegativeMarketCapIsRejected() {
+            cryptoData.setMarketCap(-30000.0);
+            Set<jakarta.validation.ConstraintViolation<CryptoData>> violations = validator.validate(cryptoData);
+            assertFalse(violations.isEmpty());
+            violations.forEach(violation -> {
+                assertEquals("Market Cap must be greater than 0", violation.getMessage());
+            });
+        }
+
+        @Test
+        void TestSetNullTimestampIsRejected() {
+            cryptoData.setTimestamp(null);
+            Set<jakarta.validation.ConstraintViolation<CryptoData>> violations = validator.validate(cryptoData);
+            assertFalse(violations.isEmpty());
+            violations.forEach(violation -> {
+                assertEquals("Timestamp is required", violation.getMessage());
+            });
+        }
+    }
 }
