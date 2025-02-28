@@ -10,14 +10,18 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class StockData {
+public class CryptoData {
 
-    @NotBlank(message = "Symbol is required")
-    private String symbol;
+    @NotBlank(message = "Coin ID is required")
+    private String coinId;
 
     @NotNull(message = "Price is required")
     @DecimalMin(value = "0.0", message = "Price must be greater than 0", inclusive = false)
     private Double price;
+
+    @NotNull(message = "Market Cap is required")
+    @DecimalMin(value = "0.0", message = "Market Cap must be greater than 0", inclusive = false)
+    private Double marketCap;
 
     @NotNull(message = "Timestamp is required")
     private LocalDateTime timestamp;

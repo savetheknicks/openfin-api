@@ -16,7 +16,7 @@ import jakarta.validation.ValidatorFactory;
 import jakarta.validation.Validator;
 
 public class TestStockData {
-    
+
     private static Validator validator;
 
     @BeforeAll
@@ -47,7 +47,7 @@ public class TestStockData {
         violations.forEach(violation -> {
             assertEquals("Symbol is required", violation.getMessage());
         });
-        
+
     }
 
     @Test
@@ -55,14 +55,13 @@ public class TestStockData {
 
         LocalDateTime timestamp = LocalDateTime.now();
 
-        
         StockData stockData = new StockData("AAPL", null, timestamp);
         Set<jakarta.validation.ConstraintViolation<StockData>> violations = validator.validate(stockData);
         assertFalse(violations.isEmpty());
         violations.forEach(violation -> {
             assertEquals("Price is required", violation.getMessage());
         });
-        
+
     }
 
     @Test
@@ -74,7 +73,7 @@ public class TestStockData {
         violations.forEach(violation -> {
             assertEquals("Timestamp is required", violation.getMessage());
         });
-        
+
     }
 
     @Nested
@@ -82,7 +81,6 @@ public class TestStockData {
 
         private LocalDateTime timestamp;
         private StockData stockData;
-        
 
         @BeforeEach
         void setUp() {
@@ -109,13 +107,13 @@ public class TestStockData {
         void TestStockDataSetValidSymbol() {
             stockData.setSymbol("GOOGL");
             assertEquals("GOOGL", stockData.getSymbol());
-        }    
+        }
 
     }
 
     @Nested
     class TestStockDataFieldsInvalidInput {
-        
+
         private LocalDateTime timestamp;
         private StockData stockData;
 
@@ -144,7 +142,7 @@ public class TestStockData {
                 assertEquals("Symbol is required", violation.getMessage());
             });
         }
-        
+
         @Test
         void TestStockDataSetBlankSymbol() {
             stockData.setSymbol(" ");
