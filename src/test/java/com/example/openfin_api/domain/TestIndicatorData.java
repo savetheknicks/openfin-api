@@ -67,7 +67,7 @@ public class TestIndicatorData {
 
         @Test
         void TestIndicatorDataConstructorWithFractionPercentValueIsAccepted() {
-            
+
             LocalDate date = LocalDate.now();
 
             BigDecimal value = new BigDecimal("0.70");
@@ -76,7 +76,7 @@ public class TestIndicatorData {
             assertEquals("RSI", indicatorData.getIndicatorName());
             assertEquals(value, indicatorData.getValue());
             assertEquals(date, indicatorData.getDate());
-            
+
         }
 
         @Test
@@ -123,7 +123,110 @@ public class TestIndicatorData {
                     validator.validateProperty(indicatorData, "date").iterator().next().getMessage());
         }
 
+    }
 
+    @Nested
+    class TestIndicatorFieldGetters {
+
+        @Test
+        void TestIndicatorDataGetIndicatorName() {
+
+            LocalDate date = LocalDate.now();
+
+            BigDecimal value = new BigDecimal("70.0");
+
+            IndicatorData indicatorData = new IndicatorData("RSI", value, date);
+            assertEquals("RSI", indicatorData.getIndicatorName());
+        }
+
+        @Test
+        void TestIndicatorDataGetValue() {
+
+            LocalDate date = LocalDate.now();
+
+            BigDecimal value = new BigDecimal("70.0");
+
+            IndicatorData indicatorData = new IndicatorData("RSI", value, date);
+            assertEquals(value, indicatorData.getValue());
+        }
+
+        @Test
+        void TestIndicatorDataGetNegativeValue() {
+
+            LocalDate date = LocalDate.now();
+
+            BigDecimal value = new BigDecimal("-70.0");
+
+            IndicatorData indicatorData = new IndicatorData("RSI", value, date);
+            assertEquals(value, indicatorData.getValue());
+        }
+
+        @Test
+        void TestIndicatorDataGetDate() {
+
+            LocalDate date = LocalDate.now();
+
+            BigDecimal value = new BigDecimal("70.0");
+
+            IndicatorData indicatorData = new IndicatorData("RSI", value, date);
+            assertEquals(date, indicatorData.getDate());
+        }
+
+    }
+
+    @Nested
+    class TestIndicatorFieldSetters {
+
+        @Test
+        void TestIndicatorDataSetIndicatorName() {
+
+            LocalDate date = LocalDate.now();
+
+            BigDecimal value = new BigDecimal("70.0");
+
+            IndicatorData indicatorData = new IndicatorData("RSI", value, date);
+            indicatorData.setIndicatorName("MACD");
+            assertEquals("MACD", indicatorData.getIndicatorName());
+        }
+
+        @Test
+        void TestIndicatorDataSetValue() {
+
+            LocalDate date = LocalDate.now();
+
+            BigDecimal value = new BigDecimal("70.0");
+
+            IndicatorData indicatorData = new IndicatorData("RSI", value, date);
+            BigDecimal newValue = new BigDecimal("80.0");
+            indicatorData.setValue(newValue);
+            assertEquals(newValue, indicatorData.getValue());
+        }
+
+        @Test
+        void TestIndicatorDataSetNegativeValue() {
+
+            LocalDate date = LocalDate.now();
+
+            BigDecimal value = new BigDecimal("70.0");
+
+            IndicatorData indicatorData = new IndicatorData("RSI", value, date);
+            BigDecimal newValue = new BigDecimal("-80.0");
+            indicatorData.setValue(newValue);
+            assertEquals(newValue, indicatorData.getValue());
+        }
+
+        @Test
+        void TestIndicatorDataSetDate() {
+
+            LocalDate date = LocalDate.now();
+
+            BigDecimal value = new BigDecimal("70.0");
+
+            IndicatorData indicatorData = new IndicatorData("RSI", value, date);
+            LocalDate newDate = LocalDate.now().minusDays(1);
+            indicatorData.setDate(newDate);
+            assertEquals(newDate, indicatorData.getDate());
+        }
     }
 
 }
