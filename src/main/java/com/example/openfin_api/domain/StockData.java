@@ -19,6 +19,10 @@ public class StockData {
     @DecimalMin(value = "0.0", message = "Price must be greater than 0", inclusive = false)
     private Double price;
 
+    @NotNull(message = "Volume is required")
+    @DecimalMin(value = "0", message = "Volume must be greater than 0", inclusive = false)
+    private Integer volume;
+
     @NotNull(message = "Timestamp is required")
     private LocalDateTime timestamp;
 }

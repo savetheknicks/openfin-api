@@ -30,7 +30,7 @@ public class TestStockData {
 
         LocalDateTime timestamp = LocalDateTime.now();
 
-        StockData stockData = new StockData("AAPL", 100.0, timestamp);
+        StockData stockData = new StockData("AAPL", 100.0, 500000, timestamp);
         assertEquals("AAPL", stockData.getSymbol());
         assertEquals(100.0, stockData.getPrice());
         assertEquals(timestamp, stockData.getTimestamp());
@@ -41,7 +41,7 @@ public class TestStockData {
 
         LocalDateTime timestamp = LocalDateTime.now();
 
-        StockData stockData = new StockData(null, 100.0, timestamp);
+        StockData stockData = new StockData(null, 100.0, 500000, timestamp);
         Set<jakarta.validation.ConstraintViolation<StockData>> violations = validator.validate(stockData);
         assertFalse(violations.isEmpty());
         violations.forEach(violation -> {
@@ -55,7 +55,7 @@ public class TestStockData {
 
         LocalDateTime timestamp = LocalDateTime.now();
 
-        StockData stockData = new StockData("AAPL", null, timestamp);
+        StockData stockData = new StockData("AAPL", null, 500000, timestamp);
         Set<jakarta.validation.ConstraintViolation<StockData>> violations = validator.validate(stockData);
         assertFalse(violations.isEmpty());
         violations.forEach(violation -> {
@@ -67,7 +67,7 @@ public class TestStockData {
     @Test
     void TestStockDataConstructorWithNullTimestampIsRejected() {
 
-        StockData stockData = new StockData("AAPL", 100.0, null);
+        StockData stockData = new StockData("AAPL", 100.0, 500000, null);
         Set<jakarta.validation.ConstraintViolation<StockData>> violations = validator.validate(stockData);
         assertFalse(violations.isEmpty());
         violations.forEach(violation -> {
@@ -85,7 +85,7 @@ public class TestStockData {
         @BeforeEach
         void setUp() {
             timestamp = LocalDateTime.now();
-            stockData = new StockData("AAPL", 100.0, timestamp);
+            stockData = new StockData("AAPL", 100.0, 500000, timestamp);
         }
 
         @Test
@@ -120,7 +120,7 @@ public class TestStockData {
         @BeforeEach
         void setUp() {
             timestamp = LocalDateTime.now();
-            stockData = new StockData("AAPL", 100.0, timestamp);
+            stockData = new StockData("AAPL", 100.0, 500000, timestamp);
         }
 
         @Test
